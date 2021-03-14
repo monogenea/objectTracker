@@ -1,0 +1,4 @@
+input/*.MOV
+objtrack_env/*
+.vscode/*
+yolov3/*
