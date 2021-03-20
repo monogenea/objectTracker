@@ -1,4 +1,4 @@
-input/*.MOV
-objtrack_env/*
-.vscode/*
-yolov3/*
+*.MOV
+objtrack_env
+.vscode
+yolov3
