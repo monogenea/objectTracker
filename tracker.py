@@ -3,10 +3,13 @@ import cv2, os
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define objectness and prob thresholds
-OBJ_THRESH = .5
-P_THRESH = .5
+# Define objectness, prob and NMS thresholds
+OBJ_THRESH = .75
+P_THRESH = .75
 NMS_THRESH = .5
+
+# Set random seed
+np.random.seed(999)
 
 #%% Load YOLOv3 COCO weights, configs and class IDs
 
@@ -54,16 +57,13 @@ out = cv2.VideoWriter('output/output.mp4', cv2.VideoWriter_fourcc(*'mp4v'),
 # Check if capture started successfully
 assert vid.isOpened()
 
-#%% Init and execute
+#%% Initiate processing
 
-# Initialize count - no need for non-maximum suppression
+# Init count
 count = 0
 
 # Create new window
 cv2.namedWindow('stream')
-
-# Create KCF tracker
-mtracker = cv2.MultiTracker_create()
 
 while(vid.isOpened()):
     # Perform detection every 60 frames
@@ -80,7 +80,9 @@ while(vid.isOpened()):
             bboxes, probs, class_ids = where_is_it(frame, outputs)
             
             if len(bboxes) > 0:
-                mtracker = cv2.MultiTracker_create() # TODO TEMP
+                # Init multitracker
+                mtracker = cv2.MultiTracker_create()
+                # Apply non-max suppression and pass boxes to the multitracker
                 idxs = cv2.dnn.NMSBoxes(bboxes, probs, P_THRESH, NMS_THRESH)
                 for i in idxs:
                     bbox = [int(v) for v in bboxes[i[0]]]
@@ -100,15 +102,16 @@ while(vid.isOpened()):
                     x, y, w, h = [int(val) for val in bbox]
                     class_id = classes[class_ids[idxs[i][0]]]
                     col = [int(c) for c in colors[class_ids[idxs[i][0]], :]]
-                    # Mark tracking frame with green color, write class name on top
+                    # Mark tracking frame with corresponding color, write class name on top
                     cv2.rectangle(frame, (x, y), (x+w, y+h), col, 2)
                     cv2.putText(frame, class_id, (x, y - 15),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, col, 1)
-#            else: # declare failure
-#                cv2.putText(frame, 'Tracking failed', (20, 80), 
-#                            cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
-            # Increase counter
-            count += 1
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, col, 2)
+                # Increase counter
+                count += 1
+            # If tracking fails, reset count to trigger detection
+            else:
+                count = 0
+
         # Display the resulting frame
         cv2.imshow('stream', frame)
         out.write(frame)
@@ -117,7 +120,7 @@ while(vid.isOpened()):
             break
     # Break if capture read does not work
     else:
-        print('Exhausted / cannot read video capture.')
+        print('Exhausted video capture.')
         break
 out.release()
 cv2.destroyAllWindows()
