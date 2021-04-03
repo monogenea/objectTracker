@@ -5,9 +5,8 @@ Part of the tutorial from my blog [poissonisfish](https://TODO.com).
 ## Instructions
 
 ### Set up virtualenv
-Create pip env python3 -m venv opencv-course then 
-source $(pwd)/env...
-Install packages using `pip install -r requirements.txt`.
+Run `pip env python3 -m venv <ENV_NAME>`, then `source <ENV_NAME>/bin/activate`.
+Finally, install packages using `pip install -r requirements.txt`.
 
 ### Video conversion using the init Bash script
 
