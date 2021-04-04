@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Define objectness, prob and NMS thresholds
-OBJ_THRESH = .75
-P_THRESH = .75
+OBJ_THRESH = .6
+P_THRESH = .6
 NMS_THRESH = .5
 
 # Set random seed
@@ -87,9 +87,8 @@ while(vid.isOpened()):
                 for i in idxs:
                     bbox = [int(v) for v in bboxes[i[0]]]
                     x, y, w, h = bbox
+                    # Use median flow
                     mtracker.add(cv2.TrackerMedianFlow_create(), frame, (x, y, w, h))
-                    # Mark detection frame with blue color
-                    cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
                 # Increase counter
                 count += 1
             else: # declare failure
