@@ -2,3 +2,5 @@
 objtrack_env
 .vscode
 yolov3
+input
+output
