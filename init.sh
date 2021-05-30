@@ -12,4 +12,3 @@ echo "Installing YOLOv3 dependencies..."
 wget https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names -P yolov3
 wget https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg -P yolov3
 wget https://pjreddie.com/media/files/yolov3.weights -P yolov3
-$SHELL
