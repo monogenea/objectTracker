@@ -6,7 +6,7 @@ Part of the upcoming tutorial from my blog [poissonisfish](https://poissonisfish
 
 # Instructions
 
-- [x] Install Python version > 3.9.0. If you don't have it, you can find it [here](https://www.python.org/downloads/).
+- [x] Install Python version >= 3.7.0. If you don't have it, you can find it [here](https://www.python.org/downloads/).
       &nbsp;
 
 ### Set up `virtualenv`
