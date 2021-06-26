@@ -15,7 +15,7 @@ From a new terminal, after setting the repository as the working directory:
 
 - Install `pipenv` by running `pip install pipenv`
 
-- Run `pip env python3 -m venv <ENV_NAME>` / `python -m venv <ENV_NAME>` to create the `pip` environment
+- Run `python -m venv <ENV_NAME>` to create the `pip` environment
 
 - Activate the `pip` environment using one of the following methods:
 
@@ -32,7 +32,7 @@ From a new terminal, after setting the repository as the working directory:
 
 ### Video conversion and object detection
 
-- Create a `.mov` video recording and move it to the working directory
+- Create a `.MOV` video recording and move it to the working directory
 
 - Run `./init.sh <PATH_TO_MOV>` to create `input` and `output` directories, convert the `.MOV` video to `.mp4` and download the `YOLOv3` dependencies for OpenCV. Please note this script requires the following utilities:
     - `ffmpeg`, available [here](https://www.ffmpeg.org/download.html) for Linux, Windows and macOS
